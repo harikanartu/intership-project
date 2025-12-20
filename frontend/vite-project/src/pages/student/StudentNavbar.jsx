@@ -1,40 +1,29 @@
 import { useNavigate } from "react-router-dom";
+import "../admin/admin.css";
 
 const StudentNavbar = () => {
   const navigate = useNavigate();
+  const studentName = localStorage.getItem("studentName");
 
   const logout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
-    <div
-      style={{
-        background: "#1e40af",
-        color: "white",
-        padding: "18px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <h2 style={{ margin: 0 }}>Student Dashboard</h2>
+    <div className="student-navbar">
+      <div className="nav-left">
+        <h3>LMS Portal</h3>
+      </div>
 
-      <button
-        onClick={logout}
-        style={{
-          background: "#ef4444",
-          color: "white",
-          border: "none",
-          padding: "10px 18px",
-          fontSize: "15px",
-          borderRadius: "6px",
-          cursor: "pointer",
-        }}
-      >
-        Logout
-      </button>
+      <div className="nav-right">
+        <span className="student-name">
+          👤 {studentName}
+        </span>
+        <button className="btn-reject" onClick={logout}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

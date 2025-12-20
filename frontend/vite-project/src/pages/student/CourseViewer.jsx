@@ -13,24 +13,21 @@ const CourseViewer = () => {
       id: 1,
       title: "Introduction",
       videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-      thumbnail:
-        "https://img.youtube.com/vi/grEKMHGYyns/hqdefault.jpg",
+      thumbnail: "https://img.youtube.com/vi/grEKMHGYyns/hqdefault.jpg",
       completed: false,
     },
     {
       id: 2,
       title: "Core Concepts",
       videoUrl: "https://www.w3schools.com/html/movie.mp4",
-      thumbnail:
-        "https://img.youtube.com/vi/8cm1x4bC610/hqdefault.jpg",
+      thumbnail: "https://img.youtube.com/vi/8cm1x4bC610/hqdefault.jpg",
       completed: false,
     },
     {
       id: 3,
       title: "Advanced Topics",
       videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-      thumbnail:
-        "https://img.youtube.com/vi/6i3EGqOBRiU/hqdefault.jpg",
+      thumbnail: "https://img.youtube.com/vi/6i3EGqOBRiU/hqdefault.jpg",
       completed: false,
     },
   ];
@@ -40,7 +37,7 @@ const CourseViewer = () => {
   /* 🔄 RESTORE PROGRESS PER COURSE */
   useEffect(() => {
     const savedProgress = Number(
-      localStorage.getItem('course_${courseId}_progress')
+      localStorage.getItem(`course_${courseId}_progress`)
     );
 
     if (savedProgress > 0) {
@@ -67,19 +64,19 @@ const CourseViewer = () => {
         i === index ? { ...c, completed: true } : c
       );
 
-      const completedCount = updated.filter(c => c.completed).length;
+      const completedCount = updated.filter((c) => c.completed).length;
       const progress = Math.round(
         (completedCount / updated.length) * 100
       );
 
       localStorage.setItem(
-        'course_${courseId}_progress',
+        `course_${courseId}_progress`,
         progress.toString()
       );
 
       if (progress === 100) {
         localStorage.setItem(
-          'course_${courseId}_completed',
+          `course_${courseId}_completed`,
           "true"
         );
       }
@@ -88,6 +85,7 @@ const CourseViewer = () => {
     });
   };
 
+  /* 📄 CERTIFICATE */
   const downloadCertificate = () => {
     const doc = new jsPDF("landscape", "pt", "a4");
 
@@ -105,14 +103,14 @@ const CourseViewer = () => {
     );
 
     doc.setFontSize(22);
-    doc.text("Course ID: " + courseId, 420, 260, {
+    doc.text(`Course ID: ${courseId}`, 420, 260, {
       align: "center",
     });
 
-    doc.save('Course_${courseId}_Certificate.pdf');
+    doc.save(`Course_${courseId}_Certificate.pdf`);
   };
 
-  const allCompleted = chapters.every(c => c.completed);
+  const allCompleted = chapters.every((c) => c.completed);
 
   return (
     <>
@@ -134,10 +132,7 @@ const CourseViewer = () => {
                   controls
                   onEnded={() => handleVideoEnd(index)}
                 >
-                  <source
-                    src={chapter.videoUrl}
-                    type="video/mp4"
-                  />
+                  <source src={chapter.videoUrl} type="video/mp4" />
                 </video>
               ) : (
                 <img
