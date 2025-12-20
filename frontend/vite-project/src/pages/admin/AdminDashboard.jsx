@@ -1,27 +1,28 @@
-import "./admin.css";
+import courses from "../../data/courses";
 
 const AdminDashboard = () => {
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p className="subtitle">Platform-wide control & monitoring</p>
+    <div className="center-card">
+      <h2>All Courses in Platform</h2>
 
-      <div className="analytics-grid">
-        <div className="analytics-card">
-          <h3>Total Users</h3>
-          <p>120</p>
-        </div>
-
-        <div className="analytics-card">
-          <h3>Total Courses</h3>
-          <p>18</p>
-        </div>
-
-        <div className="analytics-card">
-          <h3>Course Completions</h3>
-          <p>340</p>
-        </div>
-      </div>
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Mentor</th>
+            <th>Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map(c => (
+            <tr key={c.id}>
+              <td>{c.title}</td>
+              <td>{c.mentor}</td>
+              <td>{c.progress}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

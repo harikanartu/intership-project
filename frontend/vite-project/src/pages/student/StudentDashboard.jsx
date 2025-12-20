@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import StudentNavbar from "./StudentNavbar";
 import "../admin/admin.css";
-
+import courses from "../../data/courses";
 const StudentDashboard = () => {
   const navigate = useNavigate();
 

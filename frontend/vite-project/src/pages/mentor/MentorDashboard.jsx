@@ -1,69 +1,40 @@
 import { useEffect, useState } from "react";
-import "./mentor.css";
-
-const FALLBACK_IMAGE =
-  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800";
+import courses from "../../data/courses";
 
 const MentorDashboard = () => {
-  const [courses, setCourses] = useState([]);
+  const [mentorCourses, setMentorCourses] = useState([]);
 
   useEffect(() => {
-    const storedCourses =
-      JSON.parse(localStorage.getItem("mentor_courses")) || [];
-    setCourses(storedCourses);
+    const stored =
+      JSON.parse(localStorage.getItem("mentorCourses")) || [];
+    setMentorCourses(stored);
   }, []);
 
+  const allCourses = [...courses, ...mentorCourses];
+
   return (
-    <div className="center-page">
-      <h1 className="page-title">My Courses</h1>
+    <div className="center-card">
+      <h2>My Courses</h2>
 
-      {courses.length === 0 ? (
-        <p>No courses created yet</p>
-      ) : (
-        <div className="mentor-course-grid">
-          {courses.map((course) => (
-            <div key={course.id} className="mentor-course-card">
-              {/* COURSE IMAGE WITH FALLBACK */}
-              <img
-                src={course.thumbnail || FALLBACK_IMAGE}
-                alt={course.title}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = FALLBACK_IMAGE;
-                }}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  marginBottom: "12px",
-                }}
-              />
+      <div className="student-course-grid">
+        {allCourses.length === 0 && <p>No courses yet</p>}
 
-              {/* COURSE DETAILS */}
-              <h2>{course.title}</h2>
-              <p style={{ marginBottom: "10px" }}>
-                {course.description}
-              </p>
+        {allCourses.map((course) => (
+          <div key={course.id} className="student-course-card">
+            <img
+              src={course.image}
+              alt={course.title}
+              className="course-image"
+            />
 
-              {/* VIDEO LINK */}
-              {course.videoLink && (
-                <a
-                  href={course.videoLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    color: "#1f4fd8",
-                    fontWeight: "600",
-                  }}
-                >
-                  ▶ Watch Course Intro
-                </a>
-              )}
+            <div className="course-body">
+              <h4>{course.title}</h4>
+              <p className="mentor">Mentor: {course.mentor}</p>
+              <p>Progress: {course.progress}%</p>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
