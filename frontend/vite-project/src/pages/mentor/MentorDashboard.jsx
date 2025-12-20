@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import courses from "../../data/courses";
+import { getAllCourses } from "../../api/courseApi";
 
 const MentorDashboard = () => {
   const [mentorCourses, setMentorCourses] = useState([]);

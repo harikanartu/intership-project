@@ -1,71 +1,107 @@
-import "../styles/auth.css";
-import api from "../api/axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
+import { generateCaptcha } from "../utils/captcha";
+import "../styles/auth.css";
 
 const RegisterStudent = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [captcha, setCaptcha] = useState({});
+  const [captchaInput, setCaptchaInput] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
-  const submit = async (e) => {
+  useEffect(() => {
+    setCaptcha(generateCaptcha());
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
+    if (Number(captchaInput) !== captcha.answer) {
+      setError("Captcha incorrect");
+      setCaptcha(generateCaptcha());
+      setCaptchaInput("");
+      return;
+    }
+
     try {
-      await api.post("/api/auth/register", {
+      await api.post("/auth/register", {
         name: form.name,
         email: form.email,
         password: form.password,
         role: "ROLE_STUDENT",
       });
 
-      alert("Student registered successfully. Await admin approval.");
-      navigate("/login");
+      alert("Student registered successfully. Await approval.");
+      navigate("/");
     } catch (err) {
-      setError("Registration failed. Please check details.");
+      setError(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div className="auth-bg">
-      <div className="auth-card">
+      <div className="auth-container">
         <h2>Student Registration</h2>
 
-        <form onSubmit={submit}>
+        {error && <p className="error">{error}</p>}
+
+        <form onSubmit={handleSubmit}>
           <input
-            type="text"
             placeholder="Full Name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
             required
+            value={form.name}
+            onChange={(e) =>
+              setForm({ ...form, name: e.target.value })
+            }
           />
 
           <input
             type="email"
             placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
+            value={form.email}
+            onChange={(e) =>
+              setForm({ ...form, email: e.target.value })
+            }
           />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            required
-          />
+          <div className="password-field">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              required
+              value={form.password}
+              onChange={(e) =>
+                setForm({ ...form, password: e.target.value })
+              }
+            />
+            <span onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
+
+          <div className="captcha">
+            <label>Solve to see miracle: {captcha.question}</label>
+            <input
+              type="number"
+              required
+              value={captchaInput}
+              onChange={(e) => setCaptchaInput(e.target.value)}
+            />
+          </div>
 
           <button type="submit">Register</button>
         </form>
-
-        {error && <p className="auth-error">{error}</p>}
       </div>
     </div>
   );

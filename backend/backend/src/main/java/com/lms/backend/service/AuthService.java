@@ -6,6 +6,8 @@ import com.lms.backend.repository.UserRepository;
 import com.lms.backend.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthService {
@@ -30,7 +32,7 @@ public class AuthService {
         }
 
         User user = new User();
-        user.setName(request.getName()); // 🔴 REQUIRED
+        user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
@@ -57,7 +59,10 @@ public class AuthService {
         }
 
         if (!user.getApproved()) {
-            throw new RuntimeException("User not approved yet");
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "User not approved yet"
+            );
         }
 
         String token = jwtService.generateToken(
