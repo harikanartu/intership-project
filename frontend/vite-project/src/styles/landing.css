@@ -1,0 +1,90 @@
+/* ===== BACKGROUND ===== */
+.landing-bg {
+  background-image: url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.landing-overlay {
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.55);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* ===== CONTAINER ===== */
+.landing-container {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+  color: white;
+  padding: 40px;
+  gap: 50px;
+}
+
+/* ===== LEFT ===== */
+.landing-content {
+  flex: 2;
+}
+
+.landing-content h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.landing-content p {
+  font-size: 18px;
+  max-width: 600px;
+  margin-bottom: 25px;
+}
+
+.landing-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.landing-content li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* ===== RIGHT CARD ===== */
+.landing-actions {
+  flex: 1;
+  background: white;
+  color: #1e293b;
+  padding: 40px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.landing-actions h2 {
+  margin-bottom: 25px;
+}
+
+.landing-actions button {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.landing-actions button:nth-child(2) {
+  background: #2563eb;
+  color: white;
+}
+
+.landing-actions button:nth-child(3) {
+  background: #16a34a;
+  color: white;
+}
+
+.landing-actions button:nth-child(4) {
+  background: #f59e0b;
+  color: black;
+}
