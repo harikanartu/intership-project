@@ -21,6 +21,7 @@ A full-stack Learning Management System built using **Spring Boot** and **React 
 ### Mentor Module
 - Dashboard view
 - Course creation
+- chapter creation
 - Track student progress
 
 ### Student Module
@@ -57,16 +58,24 @@ A full-stack Learning Management System built using **Spring Boot** and **React 
 ## 🌐 Live Demo
 
 Frontend deployed using GitHub Pages:
+this will support only static content
+the backend is designed to run locally
 
-🔗 https://harikanartu.github.io/internship-project
+🔗 https://harikanartu.github.io/intership-project
+
 
 > Note: Backend runs locally and is demonstrated in the project explanation video.
 
 ---
 
 ## ▶️ Running the Project Locally
+## i have used swagger for development..
+## AI useage..
+ i have used chatgpt to solve code errors and for spring boot and jwt authentication as it was my first time using jwt and successfully implemented jwt authentication
+ i have also used copilot for debugging purpose for few codes
 
 ### Backend
 ```bash
 cd backend/backend
+mvn clean compile -X
 mvn spring-boot:run
