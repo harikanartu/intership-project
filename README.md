@@ -65,6 +65,10 @@ the backend is designed to run locally
 
 
 > Note: Backend runs locally and is demonstrated in the project explanation video.
+> use admin username : harika@test.com ; password:harika
+> use mentor username: mentor2@test.com ; password:mentor2
+> use student username: student2@test.com ; password:student2
+> these are the login credentials to check the respective pages.. admin can give approval in database only. so, i have provided credentials to check the pages
 
 ---
 
