@@ -51,7 +51,7 @@ A full-stack Learning Management System built using **Spring Boot** and **React 
 - JPA / Hibernate
 
 **Database**
-- MySQL (local)
+- Supabase(local)
 
 ---
 
